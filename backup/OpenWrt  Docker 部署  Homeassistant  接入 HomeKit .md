@@ -43,28 +43,22 @@ hacs商店插件安装（YouTube上有详细教程，如果遇到问题可以给
 
 `docker network create -d macvlan --subnet=192.168.5.55/24 --ip-range=192.168.5.55/24 -o macvlan_mode=bridge -o parent=br-lan macvlan`
 
-#创建一个macvlan网络模式
-
-#命令中的195.168.5.55/24是因为我上面选择br-lan的地址是192.168.5.1  所以分配一个跟你现有网络地址不冲突的在同一网段就可以，可以理解为一个虚拟网关。
+命令中的195.168.5.55/24是因为我上面选择br-lan的地址是192.168.5.1  所以分配一个跟你现有网络地址不冲突的在同一网段就可以，可以理解为一个虚拟网关。
 如果你的主路由地址为192.168.2.1 那么命令中的地址就可以是 192.168.2.X/24 自己改成自己的地址即可  
 后面的br-lan即为上面的网卡名称，如果你的是eth0 这里就改成eth0
 
-第三步之前，要删除当前的homeassistant容器，因为大家都是小白，所以这里不用ssh命令，可以直接到openwrt-docker-容器 选中homeassistant容器，先停止，再删除（不用担心yaml文件和hacs源，这里资料不会丢失）
+创建一个新的 homeassistant 容器ip为192.168.5.5 容器名称为 homeassistant
 
-创建docker 容器
+`docker run -d --restart=always --network=macvlan --ip=192.168.5.5 --privileged --name=hasstant -v /opt/docker/homeassistant:/config homeassistant/home-assistant:latest`
 
-`docker run -d --restart=always --network=macvlan --ip=192.168.5.5 --privileged --name=homeassistant  -v /opt/docker/homeassistant:/config homeassistant/home-assistant:latest`
-
-#创建一个新的homeassistant容器ip为192.168.5.5 容器名称为 homeassistant
---restart=always 是指当软路由重启或者docker重启的时候 该容器会自动启动
---ip=192.168.5.5 这条命令会改变你的homeassistant容器的访问地址，自己设定自己想要访问的地址即可，例：你的网关是192.168.2.1，那么命令可以是 --ip=192.168.2.x
---privileged  该容器获取真正的sudo权限
---name=homeassistant 为创建的容器自定义名称为homeassistant
--v /opt/docker/homeassistant:/config  这句意思是把homeassistant容器的config文件夹挂载到你的docker另一个文件目录
-homeassistant/home-assistant:latest 是你的docker镜像标签名称  可以到openwrt-docker-镜像 找到你拉取的homeassistant的镜像的标签名称
-
-后序：当你运行完了第三条命令以后，出现了一个容器id的结果  没有什么错误提示的话，那么恭喜你。已经成功创建了新的homeassistant容器！
-
+|参数|注释|
+|-----|-----|
+|--restart=always|自动启动|
+|--ip=192.168.5.5|homeassistant容器访问地址|
+|--privileged|最高权限运行|
+|--name=homeassistant|容器名|
+|-v /opt/docker/homeassistant:/config|这句意思是把homeassistant容器的config文件夹挂载到你的docker另一个文件目录|
+|homeassistant/home-assistant:latest|是你的docker镜像标签名称|
 
 
 ## 修改 Network Adapter 方法
