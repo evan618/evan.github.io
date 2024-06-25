@@ -1,2 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Blog Title</title><link>https://evan618.github.io/evan.github.io</link><description>Blog description</description><copyright>Blog Title</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://evan618.github.io/evan.github.io</link></image><lastBuildDate>Fri, 21 Jun 2024 01:47:01 +0000</lastBuildDate><managingEditor>Blog Title</managingEditor><ttl>60</ttl><webMaster>Blog Title</webMaster><item><title>Test Blog</title><link>https://evan618.github.io/evan.github.io/post/Test%20Blog.html</link><description>Test Blog1。</description><guid isPermaLink="true">https://evan618.github.io/evan.github.io/post/Test%20Blog.html</guid><pubDate>Fri, 21 Jun 2024 01:46:36 +0000</pubDate></item></channel></rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Blog Title</title><link>https://evan618.github.io/evan.github.io</link><description>Blog description</description><copyright>Blog Title</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://evan618.github.io/evan.github.io</link></image><lastBuildDate>Tue, 25 Jun 2024 08:29:28 +0000</lastBuildDate><managingEditor>Blog Title</managingEditor><ttl>60</ttl><webMaster>Blog Title</webMaster><item><title>OpenWrt  Docker 部署  Homeassistant  接入 HomeKit </title><link>https://evan618.github.io/evan.github.io/post/OpenWrt%20%20Docker%20-bu-shu-%20%20Homeassistant%20%20-jie-ru-%20HomeKit%20.html</link><description># 本帖解决Openwrt的Docker下安装homeassistant接入Homekit二维码不成功 或者一直转圈的问题！&#13;
+仅仅给那些跟我一样白的不能再白了的小白朋友们一个经验指引&#13;
+通过查阅无数  youtube csdn 简书  知乎 百度  Google  github资料  本太白金星成功添加homekit桥设备&#13;
+&#13;
+## 前提&#13;
+X86软路由 openwrt（已经带好docker环境）&#13;
+portiner 已拉取并安装（这一步可以忽略 不做也可以）&#13;
+拉取并安装homeassistant到docker&#13;
+hacs商店插件安装（YouTube上有详细教程，如果遇到问题可以给我留言，这一步也有一个很细的问题）&#13;
+配置好了homeassistant以后可以访问到web界面&#13;
+&#13;
+&#13;
+## 问题原因：&#13;
+    因为docker下的默认网络环境是三种 bridge，host，none。</description><guid isPermaLink="true">https://evan618.github.io/evan.github.io/post/OpenWrt%20%20Docker%20-bu-shu-%20%20Homeassistant%20%20-jie-ru-%20HomeKit%20.html</guid><pubDate>Tue, 25 Jun 2024 08:29:07 +0000</pubDate></item><item><title>Test Blog</title><link>https://evan618.github.io/evan.github.io/post/Test%20Blog.html</link><description>Test Blog1。</description><guid isPermaLink="true">https://evan618.github.io/evan.github.io/post/Test%20Blog.html</guid><pubDate>Fri, 21 Jun 2024 01:46:36 +0000</pubDate></item></channel></rss>
