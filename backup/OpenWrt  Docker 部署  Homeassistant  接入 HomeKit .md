@@ -46,13 +46,12 @@ hacs商店插件安装（YouTube上有详细教程，如果遇到问题可以给
 #创建一个macvlan网络模式
 
 #命令中的195.168.5.55/24是因为我上面选择br-lan的地址是192.168.5.1  所以分配一个跟你现有网络地址不冲突的在同一网段就可以，可以理解为一个虚拟网关。
-  如果你的主路由地址为192.168.2.1 那么命令中的地址就可以是 192.168.2.X/24 自己改成自己的地址即可  
-  后面的br-lan即为上面的网卡名称，如果你的是eth0 这里就改成eth0
-
+如果你的主路由地址为192.168.2.1 那么命令中的地址就可以是 192.168.2.X/24 自己改成自己的地址即可  
+后面的br-lan即为上面的网卡名称，如果你的是eth0 这里就改成eth0
 
 第三步之前，要删除当前的homeassistant容器，因为大家都是小白，所以这里不用ssh命令，可以直接到openwrt-docker-容器 选中homeassistant容器，先停止，再删除（不用担心yaml文件和hacs源，这里资料不会丢失）
 
-第三步：  
+创建docker 容器
 
 `docker run -d --restart=always --network=macvlan --ip=192.168.5.5 --privileged --name=homeassistant  -v /opt/docker/homeassistant:/config homeassistant/home-assistant:latest`
 
@@ -62,17 +61,17 @@ hacs商店插件安装（YouTube上有详细教程，如果遇到问题可以给
 --privileged  该容器获取真正的sudo权限
 --name=homeassistant 为创建的容器自定义名称为homeassistant
 -v /opt/docker/homeassistant:/config  这句意思是把homeassistant容器的config文件夹挂载到你的docker另一个文件目录
-      
- 如果你是看的IT conmmander的教程把软路由的剩余分区当成了docker的挂载盘的话就是这么操作的       如果你没有挂载，这一句可以不加直接删掉就就行 前提你的软路由硬盘大小够大！
-#homeassistant/home-assistant:latest 是你的docker镜像标签名称  可以到openwrt-docker-镜像 找到你拉取的homeassistant的镜像的标签名称
+homeassistant/home-assistant:latest 是你的docker镜像标签名称  可以到openwrt-docker-镜像 找到你拉取的homeassistant的镜像的标签名称
 
 后序：当你运行完了第三条命令以后，出现了一个容器id的结果  没有什么错误提示的话，那么恭喜你。已经成功创建了新的homeassistant容器！
 
-此时，你可以到openwrt-docker-容器 看看里面还不是有一个网络为macvlan 192.168.x.x的容器
 
-然后你就可以用这个新的ip:8123访问你的homeassistant
 
-快快去添加你的homekit    用siri来命令一切其他品牌的只能家居吧！
+## 修改 Network Adapter 方法
+
+在homeassistant中打开高级设置，然后在配置 -> 系统 -> 网络中修改 “Network Adapter“就可以解决问题了，不需要使用macvlan
+
+<img width="1208" alt="180143q71qx1x1zla1q7i1" src="https://github.com/evan618/evan.github.io/assets/20328741/015ee61a-4041-4ed7-b75d-45e3858cdf9d">
 
 ### 参考文案链接：
 https://blog.csdn.net/KEYMA/article/details/114114726
