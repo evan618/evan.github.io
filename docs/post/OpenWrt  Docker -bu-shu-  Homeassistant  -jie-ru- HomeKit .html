@@ -127,7 +127,7 @@ hacs商店插件安装（YouTube上有详细教程，如果遇到问题可以给
 后面的br-lan即为上面的网卡名称，如果你的是eth0 这里就改成eth0</p>
 <p>第三步之前，要删除当前的homeassistant容器，因为大家都是小白，所以这里不用ssh命令，可以直接到openwrt-docker-容器 选中homeassistant容器，先停止，再删除（不用担心yaml文件和hacs源，这里资料不会丢失）</p>
 <p>第三步：</p>
-<p>docker run -d --restart=always --network=macvlan --ip=192.168.5.5 --privileged --name=homeassistant  -v /opt/docker/homeassistant:/config homeassistant/home-assistant:latest</p>
+<p><code class="notranslate">docker run -d --restart=always --network=macvlan --ip=192.168.5.5 --privileged --name=homeassistant  -v /opt/docker/homeassistant:/config homeassistant/home-assistant:latest</code></p>
 <p>#创建一个新的homeassistant容器ip为192.168.5.5 容器名称为 homeassistant<br>
 --restart=always 是指当软路由重启或者docker重启的时候 该容器会自动启动<br>
 --ip=192.168.5.5 这条命令会改变你的homeassistant容器的访问地址，自己设定自己想要访问的地址即可，例：你的网关是192.168.2.1，那么命令可以是 --ip=192.168.2.x<br>
@@ -141,8 +141,8 @@ hacs商店插件安装（YouTube上有详细教程，如果遇到问题可以给
 <p>然后你就可以用这个新的ip:8123访问你的homeassistant</p>
 <p>快快去添加你的homekit    用siri来命令一切其他品牌的只能家居吧！</p>
 <h3>参考文案链接：</h3>
-<p><a href="https://blog.csdn.net/KEYMA/article/details/114114726" rel="nofollow"></a><br>
-<a href="https://www.cnblogs.com/hgdf/p/13812369.html" rel="nofollow"></a></p></div>
+<p><a href="https://blog.csdn.net/KEYMA/article/details/114114726" rel="nofollow">https://blog.csdn.net/KEYMA/article/details/114114726</a><br>
+<a href="https://www.cnblogs.com/hgdf/p/13812369.html" rel="nofollow">https://www.cnblogs.com/hgdf/p/13812369.html</a></p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
 <div class="comments" id="comments"></div>

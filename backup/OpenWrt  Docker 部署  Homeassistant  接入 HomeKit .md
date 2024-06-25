@@ -54,7 +54,7 @@ hacs商店插件安装（YouTube上有详细教程，如果遇到问题可以给
 
 第三步：  
 
-docker run -d --restart=always --network=macvlan --ip=192.168.5.5 --privileged --name=homeassistant  -v /opt/docker/homeassistant:/config homeassistant/home-assistant:latest
+`docker run -d --restart=always --network=macvlan --ip=192.168.5.5 --privileged --name=homeassistant  -v /opt/docker/homeassistant:/config homeassistant/home-assistant:latest`
 
 #创建一个新的homeassistant容器ip为192.168.5.5 容器名称为 homeassistant
 --restart=always 是指当软路由重启或者docker重启的时候 该容器会自动启动
@@ -75,7 +75,7 @@ docker run -d --restart=always --network=macvlan --ip=192.168.5.5 --privileged -
 快快去添加你的homekit    用siri来命令一切其他品牌的只能家居吧！
 
 ### 参考文案链接：
-[](https://blog.csdn.net/KEYMA/article/details/114114726)
-[](https://www.cnblogs.com/hgdf/p/13812369.html)
+https://blog.csdn.net/KEYMA/article/details/114114726
+https://www.cnblogs.com/hgdf/p/13812369.html
 
 
