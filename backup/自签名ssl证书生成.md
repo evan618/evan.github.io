@@ -49,7 +49,10 @@ Email Address []:admin@liuguang.vip
 
 > 把此证书导入需要部署的PC中即可，以后用此CA签署的证书都可以使用
 >
-> 查看证书信息命令 openssl x509 -in myCA.crt -noout -text
+
+查看证书信息
+
+`openssl x509 -in myCA.crt -noout -text`
 
 ```
 Certificate:
