@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    <link rel="icon" href="https://github.githubassets.com/favicons/favicon.svg"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="# 介绍
+
+前人种树，后人乘凉。">
+<meta property="og:title" content="ZN-M2，AX18 快速入门 超详细 刷机 OpenWrt 指北 & 常见问题汇总">
+<meta property="og:description" content="# 介绍
+
+前人种树，后人乘凉。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://evan618.github.io/evan.github.io/post/ZN-M2%EF%BC%8CAX18%20-kuai-su-ru-men-%20-chao-xiang-xi-%20-shua-ji-%20OpenWrt%20-zhi-bei-%20%26%20-chang-jian-wen-ti-hui-zong.html">
+<meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
+<title>ZN-M2，AX18 快速入门 超详细 刷机 OpenWrt 指北 & 常见问题汇总</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">ZN-M2，AX18 快速入门 超详细 刷机 OpenWrt 指北 & 常见问题汇总</h1>
+<div class="title-right">
+    <a href="https://evan618.github.io/evan.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/evan618/evan.github.io/issues/4" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h1>介绍</h1>
+<p>前人种树，后人乘凉。本贴所有内容来自互联网以及论坛里各位而我得内容也是站在巨人的肩膀上得出，有这些大佬辛勤付出所得，才有的我们使用的方法和固件，由衷感谢这些前辈们。<br>
+本贴主要是给自己做记录以及内容汇总，如果有人遇到同样的问题可以快速的定位和解决，非小白向教程。暂未更完，可先行收藏。</p>
+<p>为区分暗云UBOOT 和 官方UBOOT 区别下文均以AUBOOT 及GUBOOT 进行说明解释。不管是暗云的UBOOT 还是官方的UBOOT 均可在 TTL UBOOT 中刷写 CDT 文件。</p>
+<h2>快速了解流程</h2>
+<p>教程中提供了两种方法写入 uboot 和cdt 文件，两种方法均可按需选择。</p>
+<p>AX-16/ZN-M2 列出两种刷机方法，优先推荐通过系统升级刷入openwrt 过渡包进行刷机。</p>
+<p>第6点为可选项，如果没有升级硬改过内存跳过即可</p>
+<p>刷机方式这里介绍两种，如下所示。拆机备份过程非必须，建议在折腾之前做好固件以及原厂数据备份。请记住，在进行任何刷机操作之前，请确保您对设备和相关操作有足够的了解，并谨慎操作，以避免损坏设备或数据丢失。</p>
+<ul>
+<li>
+<p>系统升级方式刷机流程：</p>
+<ul>
+<li>
+<ol>
+<li>拆机</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>备份原始固件</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>使用原厂固件升级至过渡固件</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>在过渡固件中刷写AUBOOT引导程序</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>重启至AUBOOT并刷写对应的OpenWrt固件</li>
+</ol>
+</li>
+<li>
+<ol start="6">
+<li>硬改在改好内存后，通过openwrt 刷入 CDT 配置文件</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>TTL方式刷机流程：</p>
+<ul>
+<li>
+<ol>
+<li>拆机</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>备份原始固件</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>进入GUBOOT</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>在GUBOOT中刷写AUBOOT引导程序</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>重启至AUBOOT并刷写对应的OpenWrt固件</li>
+</ol>
+</li>
+<li>
+<ol start="6">
+<li>硬改在改好内存后，通过AUBOOT 刷入 CDT 配置文件</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2>备份原厂系统及数据</h2>
+<p>使用1.8V ttl 线连接到路由器，打开串口通信软件 putty 或者 sscom 均可，推荐putty</p>
+<p>设置并检查环境变量</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">printenv
+setenv serverip 192.168.10.100
+
+<span class="pl-c"><span class="pl-c">#</span> 备份所有分区，输入以下指令，一行一条</span>
+
+nand <span class="pl-c1">read</span> 0x44000000 0x0 0x180000
+tftpput 0x44000000 0x180000 SBL1.bin
+
+nand <span class="pl-c1">read</span> 0x44000000 0x180000 0x100000
+tftpput 0x44000000 0x100000 MIBIB.bin
+
+nand <span class="pl-c1">read</span> 0x44000000 0x280000 0x80000
+tftpput 0x44000000 0x80000 BOOTCONFIG.bin
+
+nand <span class="pl-c1">read</span> 0x44000000 0x300000 0x80000
+tftpput 0x44000000 0x80000 BOOTCONFIG1.bin
+
+nand <span class="pl-c1">read</span> 0x44000000 0x380000 0x380000
+tftpput 0x44000000 0x380000 QSEE.bin
+
+nand <span class="pl-c1">read</span> 0x44000000 0x700000 0x380000
+tftpput 0x44000000 0x380000 QSEE_1.bin
+
+nand <span class="pl-c1">read</span> 0x44000000 0xa80000 0x80000
+tftpput 0x44000000 0x80000 DEVCFG.bin
+
+nand <span class="pl-c1">read</span> 0x44000000 0xb00000 0x80000
+tftpput 0x44000000 0x80000 DEVCFG_1.bin
+
+nand <span class="pl-c1">read</span> 0x44000000 0xb80000 0x80000
+tftpput 0x44000000 0x80000 RPM.bin
+
+nand <span class="pl-c1">read</span> 0x44000000 0xc00000 0x80000
+tftpput 0x44000000 0x80000 RPM_1.bin
+
+nand <span class="pl-c1">read</span> 0x44000000 0xc80000 0x80000
+tftpput 0x44000000 0x80000 CDT.bin
+
+nand <span class="pl-c1">read</span> 0x44000000 0xd00000 0x80000
+tftpput 0x44000000 0x80000 CDT_1.bin
+
+nand <span class="pl-c1">read</span> 0x44000000 0xd80000 0x80000
+tftpput 0x44000000 0x80000 APPSBLENV.bin
+
+nand <span class="pl-c1">read</span> 0x44000000 0xe00000 0x180000
+tftpput 0x44000000 0x180000 APPSBL.bin
+
+nand <span class="pl-c1">read</span> 0x44000000 0xf80000 0x180000
+tftpput 0x44000000 0x180000 APPSBL_1.bin
+
+nand <span class="pl-c1">read</span> 0x44000000 0x1100000 0x80000
+tftpput 0x44000000 0x80000 ART.bin
+
+nand <span class="pl-c1">read</span> 0x44000000 0x1180000 0x6080000
+tftpput 0x44000000 0x6080000 rootfs.bin
+
+nand <span class="pl-c1">read</span> 0x44000000 0x7200000 0x80000
+tftpput 0x44000000 0x80000 ETHPHYFW.bin
+
+nand <span class="pl-c1">read</span> 0x44000000 0x7280000 0xa40000
+tftpput 0x44000000 0xa40000 CTCCFW.bin</pre></div>
+<h2>刷入OpenWrt</h2>
+<p>注意：某些机器会出现升级不起作用的情况，具体什么问题暂时不清楚。解决方法是通过TTL 在UBOOT 中刷入。可直接跳过写入过渡固件这一步到刷入UBOOT 这一步，通过TTL-UBOOT 的方方法 刷入暗云大佬的UBOOT，如果硬改好了也可以直接刷CDT 文件<br>
+接好TTL 线开机时按回车键进入 UBOOT 命令行界面</p>
+<h3>刷写过渡固件</h3>
+<p>将过度固件在原厂系统升级界面不保存配置升级即可。</p>
+<h3>刷写UBOOT</h3>
+<p>暗云大佬发布的uboot 有3个文件，共两个uboot版本，具体作用看下面表格</p>
+<table role="table">
+<thead>
+<tr>
+<th>文件名</th>
+<th>对应分区</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ax18-mibib.bin</td>
+<td>0:MIBIB</td>
+<td>分区扩容文件</td>
+</tr>
+<tr>
+<td>uboot-cmiot-ax18.bin</td>
+<td>0:APPSBL，0:APPSBL</td>
+<td>默认内存版本即256M</td>
+</tr>
+<tr>
+<td>uboot-cmiot-ax18-mod.bin</td>
+<td>0:APPSBL，0:APPSBL_1</td>
+<td>扩容内存版本即刷CDT后的512M,1G,2G</td>
+</tr>
+</tbody>
+</table>
+<p>下载地址：<a href="https://mbd.pub/o/bread/YpaZlp5u" rel="nofollow">https://mbd.pub/o/bread/YpaZlp5u</a></p>
+<p>比较推荐直接使用合并分区的uboot 这样可以有更多空间安装插件，这里提供两个方法刷入，可以通过Uboot 写入或者 openwrt 过渡固件写入。</p>
+<h4>通过过渡固件刷入</h4>
+<p>以下UBOOT选择一种刷入即可，请结合上面表格自行选择</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span> 只刷uboot不合并分区</span>
+mtd write /tmp/uboot-cmiot-ax18.bin /dev/mtd13
+
+<span class="pl-c"><span class="pl-c">#</span> 刷uboot合并分区：rootfs 分区达 96m</span>
+mtd write /tmp/ax18-mibib.bin /dev/mtd1
+mtd write /tmp/uboot-cmiot-ax18-mod.bin /dev/mtd13</pre></div>
+<h4>通过TLL-UBOOT 刷入</h4>
+<p>以下UBOOT选择一种刷入即可，请结合上面表格自行选择</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span> 只刷UBOOT</span>
+tftpboot uboot-cmiot-ax18.bin <span class="pl-k">&amp;&amp;</span> flash 0:APPSBL
+tftpboot uboot-cmiot-ax18.bin <span class="pl-k">&amp;&amp;</span> flash 0:APPSBL_1
+
+<span class="pl-c"><span class="pl-c">#</span> 合并和UBOOT</span>
+tftpboot ax18-mibib.bin <span class="pl-k">&amp;&amp;</span> flash 0:MIBIB
+tftpboot uboot-cmiot-ax18-mod.bin <span class="pl-k">&amp;&amp;</span> flash 0:APPSBL
+tftpboot uboot-cmiot-ax18-mod.bin <span class="pl-k">&amp;&amp;</span> flash 0:APPSBL_1</pre></div>
+<h3>固件推荐</h3>
+<pre class="notranslate"><code class="notranslate">  以下收集到的几个固件可以尝试，这里推荐第一个固件，sdf8057 大佬的固件无WIFI 温度表现比较好，适合丢弱电箱做软路由使用。
+
+  相关参考：
+  https://www.right.com.cn/forum/thread-8286273-1-1.html
+  https://github.com/sdf8057/cloudbuild/releases  此固件比编译了无线的固件温度低10度，适合放弱电箱。
+  https://anclark.github.io/2023/05/28/OpenWRT/OpenWRT_ZN-M2
+  https://www.right.com.cn/forum/thread-8262012-1-1.html
+</code></pre>
+<h2>硬改</h2>
+<p>拆机图：<a href="https://www.acwifi.net/13867.html" rel="nofollow">https://www.acwifi.net/13867.html</a><br>
+资料来源：<a href="https://www.mydigit.cn/thread-335771-1-1.html" rel="nofollow">https://www.mydigit.cn/thread-335771-1-1.html</a></p>
+<h3>USB 3.0 原件补齐</h3>
+<pre class="notranslate"><code class="notranslate">  以下提供了一个BOM 清单，可按需在淘宝购买所需原件。
+</code></pre>
+<table role="table">
+<thead>
+<tr>
+<th>序号</th>
+<th>类型</th>
+<th>型号</th>
+<th>数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>DC-DC</td>
+<td>TMI3258</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>电感</td>
+<td>WHC0530-4.7uH</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>电阻</td>
+<td>R0603_0R</td>
+<td>1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>电阻</td>
+<td>R0805_0R</td>
+<td>2</td>
+</tr>
+<tr>
+<td>5</td>
+<td>电阻</td>
+<td>R0201_100K</td>
+<td>1</td>
+</tr>
+<tr>
+<td>6</td>
+<td>电阻</td>
+<td>R0201_0R</td>
+<td>2</td>
+</tr>
+<tr>
+<td>7</td>
+<td>电阻</td>
+<td>R0201_7.68K</td>
+<td>1</td>
+</tr>
+<tr>
+<td>8</td>
+<td>电阻</td>
+<td>R0201_40.2K</td>
+<td>1</td>
+</tr>
+<tr>
+<td>9</td>
+<td>电容</td>
+<td>C0603_22uF_16V</td>
+<td>3</td>
+</tr>
+<tr>
+<td>10</td>
+<td>电容</td>
+<td>C0201_0.1uF_16V</td>
+<td>2</td>
+</tr>
+<tr>
+<td>11</td>
+<td>电容</td>
+<td>C0201_33pF</td>
+<td>1</td>
+</tr>
+<tr>
+<td>12</td>
+<td>电容</td>
+<td>C0402_0.1uF</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>命名规范以及注意事项：</p>
+<p>DC-DC型号：TMI3258</p>
+<p>电感型号：WHC0530-4.7uH</p>
+<p>电阻型号：R + 封装 + 阻值（单位欧姆）</p>
+<p>电容型号：C + 封装 + 电容值（单位微法） + 电压值（单位伏特）</p>
+<p>USB3.0信号：两个组对调一下即可，切记组内信号不得对调，电容是0402 0.1uF*4</p>
+<h3>硬改内存</h3>
+<p>CDT 内存配置文件</p>
+<p>CDT 必须拆机硬改内存更换内存颗粒后才可以刷，否则会砖头！</p>
+<p>OpenWrt下刷入:</p>
+<p>使用Winscp 将 CDT 文件上传至ZN-M2 的  /tmp  文件夹下，通过Putty 或者SSH工具，连接后输入以下指令</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate"><span class="pl-c"><span class="pl-c">#</span> 以512M为例</span>
+mtd write /tmp/cdt-AX18_AX18_512M.bin /dev/mtd10
+mtd write /tmp/cdt-AX18_AX18_512M.bin /dev/mtd11
+
+TTL-UBOOT刷入:
+      打开TFTP 工具，将 CDT 文件放在 TFTP 根目录，通过Putty 或者其他串口通信工具，连接TTL 输入以下指令
+
+<span class="pl-c"><span class="pl-c">#</span> 以512M为例</span>
+tftpboot cdt-AX18_AX18_512M.bin <span class="pl-k">&amp;&amp;</span> flash 0:CDT
+tftpboot cdt-AX18_AX18_512M.bin <span class="pl-k">&amp;&amp;</span> flash 0:CDT_1
+</pre></div>
+<h2>刷回官方固件</h2>
+<p>可能有的小伙伴们，刷机是想拿来做 AP  或者对无线有刚需的，体验过OpenWrt固件后发现并不能满足自己的需求，要回官方。这里也提供一个回官方固件的方法（未验证理论可行谨慎操作！）</p>
+<p>使用USB-TTL 工具，连接至路由器。打开TFTP 工具将官方固件备份文件放置在TFTP目录下，使用以下命令刷回官方</p>
+<div class="highlight highlight-source-shell"><pre class="notranslate">tftpboot MIBIB.bin <span class="pl-k">&amp;&amp;</span> flash 0:MIBIB
+tftpboot APPSBL.bin <span class="pl-k">&amp;&amp;</span> flash 0:APPSBL
+tftpboot APPSBL.bin <span class="pl-k">&amp;&amp;</span> flash 0:APPSBL_1
+tftpboot rootfs.bin <span class="pl-k">&amp;&amp;</span> flash rootfs</pre></div>
+<h2>常见问题</h2>
+<ul>
+<li>
+<p>在系统升级界面升级不起作用</p>
+<ul>
+<li>具体表现形式为：升级中没有任何报错，路由器重启后还是进入原厂固件。可以使用TTL 线 连接至路由器，将TFTP 软件打开，使用TTL 方式刷入系统。</li>
+<li>具体流程为进入 UBOOT 中使用TTL 线 刷入UBOOT 然后直接重启至UBOOT 刷 OpenWrt 第三方固件</li>
+</ul>
+</li>
+<li>
+<p>硬改内存后重启/死机</p>
+<ul>
+<li>具体表现形式为: 内存占用到某个大小时会卡死，重启，或者出现其他BUG。总之是一些不稳定特征，重启后又表现正常，运行一段时间又复发。</li>
+<li>以下解决方案仅针对于焊接工艺达标，没出现虚焊，颗粒正常情况下。使用我上面提供的这个CDT 文件重刷CDT 分区。</li>
+<li>CDT 文件来自网络，如有侵权联系删除。</li>
+</ul>
+</li>
+<li>
+<p>整机备份及编程器固件</p>
+</li>
+</ul>
+<p>这里也向各位坛友们提供一套固件，需要自取。</p>
+<ul>
+<li>编程器固件：<a href="https://rcco.lanzouj.com/izBP223bu2od" rel="nofollow">https://rcco.lanzouj.com/izBP223bu2od</a></li>
+<li>整机单分区备份：https:wwjo.lanzouk.com/ibeiI12h0hcf</li>
+</ul></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer">Copyright © <span id="year"></span><a href="https://evan618.github.io/evan.github.io"> Blog Title </a>
+<p>
+<span id="runday"></span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a>
+</p>
+
+<script>
+if(""!=""){
+    var now=new Date();
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("year").innerHTML=now.getFullYear();
+    if(""!=""){document.getElementById("runday").innerHTML=" • "+"网站运行"+diffDay+"天"+" • ";}
+    else{document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";}
+}
+</script>
+</div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n\n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","evan618/evan.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+</script>
+
+
+</html>
