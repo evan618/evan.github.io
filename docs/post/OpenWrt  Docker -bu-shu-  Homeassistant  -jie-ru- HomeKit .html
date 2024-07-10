@@ -126,7 +126,7 @@ hacs商店插件安装（YouTube上有详细教程，如果遇到问题可以给
 后面的br-lan即为上面的网卡名称，如果你的是eth0 这里就改成eth0</p>
 <p>创建一个新的 homeassistant 容器ip为192.168.5.5 容器名称为 homeassistant</p>
 <p><code class="notranslate">docker run -d --restart=always --network=macvlan --ip=192.168.5.5 --privileged --name=hasstant -v /opt/docker/homeassistant:/config homeassistant/home-assistant:latest</code></p>
-<table role="table">
+<markdown-accessiblity-table><table role="table">
 <thead>
 <tr>
 <th>参数</th>
@@ -159,7 +159,7 @@ hacs商店插件安装（YouTube上有详细教程，如果遇到问题可以给
 <td>是你的docker镜像标签名称</td>
 </tr>
 </tbody>
-</table>
+</table></markdown-accessiblity-table>
 <h2>修改 Network Adapter 方法</h2>
 <p>在homeassistant中打开高级设置，然后在配置 -&gt; 系统 -&gt; 网络中修改 “Network Adapter“就可以解决问题了，不需要使用macvlan</p>
 <p><a target="_blank" rel="noopener noreferrer" href="https://github.com/evan618/evan.github.io/assets/20328741/015ee61a-4041-4ed7-b75d-45e3858cdf9d"><img width="1208" alt="180143q71qx1x1zla1q7i1" src="https://github.com/evan618/evan.github.io/assets/20328741/015ee61a-4041-4ed7-b75d-45e3858cdf9d" style="max-width: 100%;"></a></p>
